@@ -23,6 +23,15 @@ const FoodLog = () => {
   ];
 
   useEffect(() => {
+    const storedLog = localStorage.getItem('log');
+    if (storedLog) {
+      const logData = JSON.parse(storedLog);
+      const totalCalories = logData.reduce((acc, item) => acc - item.totalCalories, 1600);
+      setTotalCalories(totalCalories);
+    }
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem('log', JSON.stringify(log));
   }, [log]);
 
