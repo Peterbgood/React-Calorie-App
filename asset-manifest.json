@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/React-Calorie-App/static/css/main.ca67ef22.css",
-    "main.js": "/React-Calorie-App/static/js/main.ae8c23e5.js",
+    "main.js": "/React-Calorie-App/static/js/main.59b606f7.js",
     "static/js/488.bfc60fd6.chunk.js": "/React-Calorie-App/static/js/488.bfc60fd6.chunk.js",
     "index.html": "/React-Calorie-App/index.html",
     "main.ca67ef22.css.map": "/React-Calorie-App/static/css/main.ca67ef22.css.map",
-    "main.ae8c23e5.js.map": "/React-Calorie-App/static/js/main.ae8c23e5.js.map",
+    "main.59b606f7.js.map": "/React-Calorie-App/static/js/main.59b606f7.js.map",
     "488.bfc60fd6.chunk.js.map": "/React-Calorie-App/static/js/488.bfc60fd6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ca67ef22.css",
-    "static/js/main.ae8c23e5.js"
+    "static/js/main.59b606f7.js"
   ]
 }
