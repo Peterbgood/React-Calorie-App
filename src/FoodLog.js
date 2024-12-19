@@ -16,11 +16,77 @@ const FoodLog = () => {
   const [date, setDate] = useState(new Date());
 
   const foodItems = [
-    { name: 'Apple', calories: 95 },
-    { name: 'Banana', calories: 105 },
-    { name: 'Orange', calories: 60 },
-    // Add more food items here...
+    {
+      category: "Beverages",
+      items: [
+        { name: '☕ Coffee', calories: 200 },
+        { name: '🥤 Fast-Food Soda', calories: 140 },
+        { name: '🍺 Corona', calories: 600 },
+        { name: '🥤 Gatorade', calories: 80 },
+      ]
+    },
+    {
+      category: "Fruits",
+      items: [
+        { name: '🍌 Banana', calories: 100 },
+        { name: '🍑 Peach', calories: 70 },
+        { name: '🥑 Avocado', calories: 250 },
+        { name: '🍎 Apple', calories: 95 },
+      ]
+    },
+    {
+      category: "Dairy/Eggs",
+      items: [
+        { name: '🥚 Eggs', calories: 70 },
+        { name: '🥣 Yogurt', calories: 80 },
+        { name: '🥛 Milk', calories: 150 },
+        { name: '🧀 Sliced Cheese', calories: 80 },
+        { name: '🧀 Sliced Cheese', calories: 50 },
+      ]
+    },
+    {
+      category: "Grains",
+      items: [
+        { name: '🍞 Whole Wheat Bread', calories: 110 },
+        { name: '🍞 Bread', calories: 70 },
+      ]
+    },
+    {
+      category: "Fast Food",
+      items: [
+        { name: '🍔 Big Mac', calories: 550 },
+        { name: '🍟 McDonald\'s Fries', calories: 440 },
+        { name: '🌯 Quesadillas', calories: 590 },
+        { name: '🍚 Bowl', calories: 800 },
+        { name: '🌮 Chalupa', calories: 360 },
+        { name: '🍔 Whopper', calories: 670 },
+        { name: '🍟 BK\'s Fries', calories: 440 },
+        { name: '🍔 Chick-fil-A Deluxe Sandwich', calories: 490 },
+        { name: '🍔 Chick-fil-A Sandwich', calories: 440 },
+        { name: '🐔 Chick-fil-A Strips', calories: 410 },
+        { name: '🍞 Chick-fil-A Biscuit', calories: 460 },
+        { name: '🍟 Chick-fil-A Fries', calories: 440 },
+        { name: '🌶️ Zesty Buffalo', calories: 25 },
+        { name: '🍦 Chick-fil-A Shake', calories: 560 },
+        { name: '🍋 Chick-fil-A Lemon Shake', calories: 320 },
+        { name: '🌯 TB Quesadillas', calories: 510 },
+        { name: '🌮 Chalupa', calories: 360 },
+        { name: '🥯 Saugage McMuffin', calories: 480 },
+        { name: '🐔 McDonald\'s Nuggets', calories: 410 },
+      ]
+    },
+    {
+      category: "Desserts",
+      items: [
+        { name: '🍩 Dunkin Donut', calories: 240 },
+        { name: '🍫 Andes Mints', calories: 25 },
+        { name: '🌋 Hersheys Kiss', calories: 15 },
+        { name: '🍨 Oreo Blazzard', calories: 340 },
+      ]
+    },
+   
   ];
+
 
   useEffect(() => {
     const storedLog = localStorage.getItem('log');
@@ -176,16 +242,23 @@ const FoodLog = () => {
 </ul>
 <p>Total Calories Remaining: {totalCalories}</p>
 <button className="btn btn-danger" onClick={handleReset}>Reset</button>
+
+
 <h2>Add Food</h2>
 <div className="d-flex flex-wrap">
-  {foodItems.map((foodItem, index) => (
+  {foodItems.map((category, index) => (
     <div key={index} className="m-2">
-      <button className="btn btn-primary" onClick={() => handleAddFood(foodItem)}>
-        Add {foodItem.name} ({foodItem.calories} calories)
-      </button>
+      <h3>{category.category}</h3>
+      {category.items.map((foodItem, itemIndex) => (
+        <button key={itemIndex} className="btn btn-primary m-1" onClick={() => handleAddFood(foodItem)}>
+          {foodItem.name} ({foodItem.calories} calories)
+        </button>
+      ))}
     </div>
   ))}
 </div>
+
+
 <h2>Burn Calories</h2>
 <div className="d-flex flex-wrap">
   <div className="m-2">
@@ -194,10 +267,22 @@ const FoodLog = () => {
     </button>
   </div>
   <div className="m-2">
-    <button className="btn btn-primary" onClick={() => handleBurnCalories(20)}>
-      Burn 20 calories <FontAwesomeIcon icon={faFire} />
+    <button className="btn btn-primary" onClick={() => handleBurnCalories(100)}>
+      Burn 100 calories <FontAwesomeIcon icon={faFire} />
+    </button></div><div className="m-2">
+    <button className="btn btn-primary" onClick={() => handleBurnCalories(50)}>
+      Burn 50 calories <FontAwesomeIcon icon={faFire} />
     </button>
   </div>
+  <div className="m-2">
+    <button className="btn btn-primary" onClick={() => handleBurnCalories(20)}>
+      Burn 20 calories <FontAwesomeIcon icon={faFire} />
+    </button></div><div className="m-2">
+    <button className="btn btn-primary" onClick={() => handleBurnCalories(10)}>
+      Burn 10 calories <FontAwesomeIcon icon={faFire} />
+    </button>
+  </div>
+  
 </div>
 </div>
 );
