@@ -43,9 +43,12 @@ const FoodLog = () => {
 
   const handleDeleteFood = (foodItem) => {
     setLog((prevLog) => prevLog.filter((item) => item.name !== foodItem.name));
-    setTotalCalories((prevTotalCalories) => prevTotalCalories + foodItem.totalCalories);
+    if (foodItem.name === 'Calories Burned') {
+      setTotalCalories((prevTotalCalories) => prevTotalCalories - foodItem.totalCalories);
+    } else {
+      setTotalCalories((prevTotalCalories) => prevTotalCalories + foodItem.totalCalories);
+    }
   };
-
   const handleReset = () => {
     setLog([]);
     setTotalCalories(1600);
@@ -68,7 +71,17 @@ const FoodLog = () => {
 
   const handleBurnCalories = (calories) => {
     setBurnedCalories((prevBurnedCalories) => prevBurnedCalories + calories);
-    setLog((prevLog) => [...prevLog, { name: 'Calories Burned', calories: calories, totalCalories: calories }]);
+    const existingBurnedCalories = log.find((item) => item.name === 'Calories Burned');
+    if (existingBurnedCalories) {
+      setLog((prevLog) => prevLog.map((item) => {
+        if (item.name === 'Calories Burned') {
+          return { ...item, totalCalories: item.totalCalories + calories };
+        }
+        return item;
+      }));
+    } else {
+      setLog((prevLog) => [...prevLog, { name: 'Calories Burned', calories: calories, totalCalories: calories }]);
+    }
     setTotalCalories((prevTotalCalories) => prevTotalCalories + calories);
   };
 
