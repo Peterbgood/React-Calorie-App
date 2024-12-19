@@ -84,7 +84,7 @@ const FoodLog = () => {
         { name: '🍨 Oreo Blazzard', calories: 340 },
       ]
     },
-   
+
   ];
 
 
@@ -197,95 +197,95 @@ const FoodLog = () => {
       </div>
       <div style={{ textAlign: 'center' }}>
         <PieChart width={400} height={400}>
-        <Pie
-  data={data}
-  cx="50%"
-  cy="50%"
-  innerRadius={60}
-  outerRadius={80}
-  fill={totalCalories >= 1600 ? '#FF0000' : '#4CAF50'}
-  startAngle={90}
-  endAngle={-270}
->
-  {data.map((entry, index) => (
-    <Cell key={`cell-${index}`} fill={totalCalories >= 1600 ? '#FF0000' : index === 0 ? '#4CAF50' : '#3F51B5'} />
-  ))}
-</Pie>
-</PieChart>
-</div>
-<h1>Food Log</h1>
-<ul className="list-group">
-  {log.map((foodItem, index) => (
-    <li key={index} className="list-group-item d-flex align-items-center justify-content-between">
-      {editing && editing.name === foodItem.name ? (
-        <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} />
-      ) : (
-        <span>{foodItem.name} ({foodItem.totalCalories} calories) {foodItem.count > 1 && `x${foodItem.count}`}</span>
-      )}
-      <div className="d-flex">
-        {editing && editing.name === foodItem.name ? (
-          <button className="btn btn-success" onClick={() => handleSaveEdit(foodItem)}>Save</button>
-        ) : (
-          <>
-            <button className="btn btn-primary" onClick={() => handleEditFood(foodItem)}>
-              <FontAwesomeIcon icon={faEdit} />
-            </button>
-            &nbsp;
-            <button className="btn btn-danger" onClick={() => handleDeleteFood(foodItem)}>
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
-          </>
-        )}
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={60}
+            outerRadius={80}
+            fill={totalCalories >= 1600 ? '#FF0000' : '#4CAF50'}
+            startAngle={90}
+            endAngle={-270}
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={totalCalories >= 1600 ? '#FF0000' : index === 0 ? '#4CAF50' : '#3F51B5'} />
+            ))}
+          </Pie>
+        </PieChart>
       </div>
-    </li>
-  ))}
-</ul>
-<p>Total Calories Remaining: {totalCalories}</p>
-<button className="btn btn-danger" onClick={handleReset}>Reset</button>
+      <h1>Food Log</h1>
+      <ul className="list-group">
+        {log.map((foodItem, index) => (
+          <li key={index} className="list-group-item d-flex align-items-center justify-content-between">
+            {editing && editing.name === foodItem.name ? (
+              <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} />
+            ) : (
+              <span>{foodItem.name} ({foodItem.totalCalories} calories) {foodItem.count > 1 && `x${foodItem.count}`}</span>
+            )}
+            <div className="d-flex">
+              {editing && editing.name === foodItem.name ? (
+                <button className="btn btn-success" onClick={() => handleSaveEdit(foodItem)}>Save</button>
+              ) : (
+                <>
+                  <button className="btn btn-primary" onClick={() => handleEditFood(foodItem)}>
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                  &nbsp;
+                  <button className="btn btn-danger" onClick={() => handleDeleteFood(foodItem)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p>Total Calories Remaining: {totalCalories}</p>
+      <button className="btn btn-danger" onClick={handleReset}>Reset</button>
 
 
-<h2>Add Food</h2>
-<div className="d-flex flex-wrap">
-  {foodItems.map((category, index) => (
-    <div key={index} className="m-2">
-      <h3>{category.category}</h3>
-      {category.items.map((foodItem, itemIndex) => (
-        <button key={itemIndex} className="btn btn-primary m-1" onClick={() => handleAddFood(foodItem)}>
-          {foodItem.name} ({foodItem.calories} calories)
-        </button>
-      ))}
+      <h2>Add Food</h2>
+      <div className="d-flex flex-wrap">
+        {foodItems.map((category, index) => (
+          <div key={index} className="m-2">
+            <h3>{category.category}</h3>
+            {category.items.map((foodItem, itemIndex) => (
+              <button key={itemIndex} className="btn btn-primary m-1" onClick={() => handleAddFood(foodItem)}>
+                {foodItem.name} ({foodItem.calories} calories)
+              </button>
+            ))}
+          </div>
+        ))}
+      </div>
+
+
+      <h2>Burn Calories</h2>
+      <div className="d-flex flex-wrap">
+        <div className="m-2">
+          <button className="btn btn-primary" onClick={() => handleBurnCalories(500)}>
+            Burn 500 calories <FontAwesomeIcon icon={faFire} />
+          </button>
+        </div>
+        <div className="m-2">
+          <button className="btn btn-primary" onClick={() => handleBurnCalories(100)}>
+            Burn 100 calories <FontAwesomeIcon icon={faFire} />
+          </button></div><div className="m-2">
+          <button className="btn btn-primary" onClick={() => handleBurnCalories(50)}>
+            Burn 50 calories <FontAwesomeIcon icon={faFire} />
+          </button>
+        </div>
+        <div className="m-2">
+          <button className="btn btn-primary" onClick={() => handleBurnCalories(20)}>
+            Burn 20 calories <FontAwesomeIcon icon={faFire} />
+          </button></div><div className="m-2">
+          <button className="btn btn-primary" onClick={() => handleBurnCalories(10)}>
+            Burn 10 calories <FontAwesomeIcon icon={faFire} />
+          </button>
+        </div>
+
+      </div>
     </div>
-  ))}
-</div>
-
-
-<h2>Burn Calories</h2>
-<div className="d-flex flex-wrap">
-  <div className="m-2">
-    <button className="btn btn-primary" onClick={() => handleBurnCalories(500)}>
-      Burn 500 calories <FontAwesomeIcon icon={faFire} />
-    </button>
-  </div>
-  <div className="m-2">
-    <button className="btn btn-primary" onClick={() => handleBurnCalories(100)}>
-      Burn 100 calories <FontAwesomeIcon icon={faFire} />
-    </button></div><div className="m-2">
-    <button className="btn btn-primary" onClick={() => handleBurnCalories(50)}>
-      Burn 50 calories <FontAwesomeIcon icon={faFire} />
-    </button>
-  </div>
-  <div className="m-2">
-    <button className="btn btn-primary" onClick={() => handleBurnCalories(20)}>
-      Burn 20 calories <FontAwesomeIcon icon={faFire} />
-    </button></div><div className="m-2">
-    <button className="btn btn-primary" onClick={() => handleBurnCalories(10)}>
-      Burn 10 calories <FontAwesomeIcon icon={faFire} />
-    </button>
-  </div>
-  
-</div>
-</div>
-);
+  );
 };
 
 export default FoodLog;
