@@ -1,5 +1,6 @@
 import React from 'react';
 import FoodLog from './FoodLog';
+import './styles.css';
 
 function App() {
   return (

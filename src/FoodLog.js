@@ -208,7 +208,7 @@ marginBottom: '10px',
 <h3 style={{ textAlign: 'center', paddingBottom: '10px' }}>{category.category}</h3>
 <div className="d-flex flex-wrap justify-content-center">
 {category.items.map((foodItem, itemIndex) => (
-<button key={itemIndex} className="btn btn-primary m-1" onClick={() => handleAddFood(foodItem)}>
+<button key={itemIndex} className="btn btn-primary m-1 food-button" onClick={() => handleAddFood(foodItem)}>
 {foodItem.name} ({foodItem.calories})
 </button>
 ))}
