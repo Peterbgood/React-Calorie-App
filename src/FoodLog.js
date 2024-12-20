@@ -137,14 +137,15 @@ return (
 
 
 <div style={{
-textAlign: 'center',
-display: 'flex',
-justifyContent: 'center',
-paddingBottom: '20px'
+  textAlign: 'center',
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: '-20px', // Added negative margin top
+  marginBottom: '10px', // Reduced padding from 20px to 10px
 }}>
-<CalorieChart data={data} />
+  <CalorieChart data={data} />
 </div>
-<h1 style={{ textAlign: 'center', paddingBottom: '20px' }}>Food Log</h1>
+
 <ul className="list-group">
 {log.map((foodItem, index) => (
 <li key={index} className="list-group-item d-flex align-items-center justify-content-between">

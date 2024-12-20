@@ -9,23 +9,24 @@ const CalorieChart = ({ data }) => {
       textAlign: 'center',
       display: 'flex',
       justifyContent: 'center',
-      paddingBottom: '20px'
     }}>
-      <PieChart width={400} height={400}>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          innerRadius={60}
-          outerRadius={80}
-          startAngle={90}
-          endAngle={-270}
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-          ))}
-        </Pie>
-      </PieChart>
+      <div style={{ width: '200px', height: '200px' }}>
+        <PieChart width={200} height={200}>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={40}
+            outerRadius={60}
+            startAngle={90}
+            endAngle={-270}
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </div>
     </div>
   );
 };
