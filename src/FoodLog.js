@@ -8,15 +8,30 @@ import CalorieChart from './CalorieChart'; // Import CalorieChart
 const FoodLog = () => {
 const [log, setLog] = useState(() => {
 const storedLog = localStorage.getItem(`log-${new Date().toISOString().split('T')[0]}`);
-return storedLog ? JSON.parse(storedLog) : [];
+if (storedLog) {
+return JSON.parse(storedLog);
+} else {
+return [
+{ name: '☕ Coffee', calories: 200, count: 1, totalCalories: 200 },
+{ name: '🔥 Burnt', calories: 0, count: 1, totalCalories: 0 },
+];
+}
 });
-const [totalCalories, setTotalCalories] = useState(1600);
+
+const [totalCalories, setTotalCalories] = useState(() => {
+const storedLog = localStorage.getItem(`log-${new Date().toISOString().split('T')[0]}`);
+if (storedLog) {
+const logData = JSON.parse(storedLog);
+return logData.reduce((acc, item) => acc - item.totalCalories, 1600);
+} else {
+return 1400; // Adjusted total calories to reflect default coffee log
+}
+});
+
 const [editing, setEditing] = useState(null);
 const [newName, setNewName] = useState('');
 const [burnedCalories, setBurnedCalories] = useState(0);
 const [date, setDate] = useState(new Date());
-
-
 
 useEffect(() => {
 const storedLog = localStorage.getItem(`log-${date.toISOString().split('T')[0]}`);
@@ -26,8 +41,11 @@ const totalCalories = logData.reduce((acc, item) => acc - item.totalCalories, 16
 setTotalCalories(totalCalories);
 setLog(logData);
 } else {
-setLog([]);
-setTotalCalories(1600);
+setLog([
+{ name: '☕ Coffee', calories: 200, count: 1, totalCalories: 200 },
+{ name: '🔥 Burnt', calories: 0, count: 1, totalCalories: 0 },
+]);
+setTotalCalories(1400); // Adjusted total calories to reflect default coffee log
 }
 }, [date]);
 
@@ -36,6 +54,11 @@ localStorage.setItem(`log-${date.toISOString().split('T')[0]}`, JSON.stringify(l
 }, [log, date]);
 
 const handleAddFood = (foodItem) => {
+if (foodItem.name === '☕ Coffee') {
+setLog((prevLog) => [{ name: '☕ Coffee', calories: 200, count: 1, totalCalories: 200 }, ...prevLog.filter((item) => item.name !== '☕ Coffee')]);
+} else if (foodItem.name === '🔥 Burnt') {
+setLog((prevLog) => [...prevLog.filter((item) => item.name !== '🔥 Burnt'), { ...foodItem, count: 1, totalCalories: foodItem.calories }]);
+} else {
 const existingItem = log.find((item) => item.name === foodItem.name);
 if (existingItem) {
 setLog((prevLog) => prevLog.map((item) => {
@@ -45,19 +68,26 @@ return { ...item, count: item.count + 1, totalCalories: item.totalCalories + foo
 return item;
 }));
 } else {
+const burnedCaloriesItem = log.find((item) => item.name === '🔥 Burnt');
+if (burnedCaloriesItem) {
+setLog((prevLog) => [...prevLog.filter((item) => item.name !== '🔥 Burnt'), { ...foodItem, count: 1, totalCalories: foodItem.calories }, burnedCaloriesItem]);
+} else {
 setLog((prevLog) => [...prevLog, { ...foodItem, count: 1, totalCalories: foodItem.calories }]);
+}
+}
 }
 setTotalCalories((prevTotalCalories) => prevTotalCalories - foodItem.calories);
 };
 
 const handleDeleteFood = (foodItem) => {
 setLog((prevLog) => prevLog.filter((item) => item.name !== foodItem.name));
-if (foodItem.name === 'Calories Burned') {
+if (foodItem.name === '🔥 Burnt') {
 setTotalCalories((prevTotalCalories) => prevTotalCalories - foodItem.totalCalories);
 } else {
 setTotalCalories((prevTotalCalories) => prevTotalCalories + foodItem.totalCalories);
 }
 };
+
 const handleReset = () => {
 setLog([]);
 setTotalCalories(1600);
@@ -80,16 +110,15 @@ setEditing(null);
 
 const handleBurnCalories = (calories) => {
 setBurnedCalories((prevBurnedCalories) => prevBurnedCalories + calories);
-const existingBurnedCalories = log.find((item) => item.name === 'Calories Burned');
+const existingBurnedCalories = log.find((item) => item.name === '🔥 Burnt');
 if (existingBurnedCalories) {
-setLog((prevLog) => prevLog.map((item) => {
-if (item.name === 'Calories Burned') {
-return { ...item, totalCalories: item.totalCalories + calories };
-}
-return item;
-}));
+setLog((prevLog) => {
+const burnedCaloriesItem = prevLog.find((item) => item.name === '🔥 Burnt');
+burnedCaloriesItem.totalCalories += calories;
+return [...prevLog.filter((item) => item.name !== '🔥 Burnt'), burnedCaloriesItem];
+});
 } else {
-setLog((prevLog) => [...prevLog, { name: 'Calories Burned', calories: calories, totalCalories: calories }]);
+setLog((prevLog) => [...prevLog, { name: '🔥 Burnt', calories: calories, totalCalories: calories }]);
 }
 setTotalCalories((prevTotalCalories) => prevTotalCalories + calories);
 };
@@ -114,36 +143,34 @@ const data = [
 const remainingCalories = 1600 - totalCalories;
 
 return (
-
 <div className="container mt-5">
 <div style={{ textAlign: 'center' }}>
-  <div className="input-group input-group-sm mb-3" style={{ justifyContent: 'center', borderRadius: '0.25rem' }}>
-    <div className="input-group-prepend">
-      <button className="btn btn-secondary" style={{ borderTopRightRadius: '0', borderBottomRightRadius: '0' }} onClick={() => handleDateChange('prev')}>
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </button>
-    </div>
-    <input type="text" className="form-control text-center" style={{ borderTopLeftRadius: '0', borderBottomLeftRadius: '0' }} value={date.toLocaleDateString('en-US', {
-      month: 'long',
-      day: 'numeric',
-    })} readOnly />
-    <div className="input-group-append">
-      <button className="btn btn-secondary" style={{ borderTopLeftRadius: '0', borderBottomLeftRadius: '0' }} onClick={() => handleDateChange('next')}>
-        <FontAwesomeIcon icon={faArrowRight} />
-      </button>
-    </div>
-  </div>
+<div className="input-group input-group-sm mb-3" style={{ justifyContent: 'center', borderRadius: '0.25rem' }}>
+<div className="input-group-prepend">
+<button className="btn btn-secondary" style={{ borderTopRightRadius: '0', borderBottomRightRadius: '0' }} onClick={() => handleDateChange('prev')}>
+<FontAwesomeIcon icon={faArrowLeft} />
+</button>
+</div>
+<input type="text" className="form-control text-center" style={{ borderTopLeftRadius: '0', borderBottomLeftRadius: '0' }} value={date.toLocaleDateString('en-US', {
+month: 'long',
+day: 'numeric',
+})} readOnly />
+<div className="input-group-append">
+<button className="btn btn-secondary" style={{ borderTopLeftRadius: '0', borderBottomLeftRadius: '0' }} onClick={() => handleDateChange('next')}>
+<FontAwesomeIcon icon={faArrowRight} />
+</button>
+</div>
+</div>
 </div>
 
-
 <div style={{
-  textAlign: 'center',
-  display: 'flex',
-  justifyContent: 'center',
-  marginTop: '-20px', // Added negative margin top
-  marginBottom: '10px', // Reduced padding from 20px to 10px
+textAlign: 'center',
+display: 'flex',
+justifyContent: 'center',
+marginTop: '-20px',
+marginBottom: '10px',
 }}>
-  <CalorieChart data={data} />
+<CalorieChart data={data} totalCalories={totalCalories} />
 </div>
 
 <ul className="list-group">
@@ -156,14 +183,14 @@ return (
 )}
 <div className="d-flex">
 {editing && editing.name === foodItem.name ? (
-<button className="btn btn-success" onClick={() => handleSaveEdit(foodItem)}>Save</button>
+<button className="btn btn-success btn-sm" onClick={() => handleSaveEdit(foodItem)}>Save</button>
 ) : (
 <>
-<button className="btn btn-primary" onClick={() => handleEditFood(foodItem)}>
+<button className="btn btn-primary btn-sm" onClick={() => handleEditFood(foodItem)}>
 <FontAwesomeIcon icon={faEdit} />
 </button>
 &nbsp;
-<button className="btn btn-danger" onClick={() => handleDeleteFood(foodItem)}>
+<button className="btn btn-danger btn-sm" onClick={() => handleDeleteFood(foodItem)}>
 <FontAwesomeIcon icon={faTrash} />
 </button>
 </>
@@ -173,14 +200,8 @@ return (
 ))}
 </ul>
 
-
 <p className="mt-4" style={{ textAlign: 'center' }}>Total Calories Remaining: {totalCalories}</p>
 <p style={{ textAlign: 'center' }}>Total Calories Consumed: {1600 - totalCalories}</p>
-
-
-
-
-
 
 {foodItems.map((category, index) => (
 <div key={index} className="m-2">
@@ -205,7 +226,9 @@ Burn 500 <FontAwesomeIcon icon={faFire} />
 <div className="m-2">
 <button className="btn btn-primary" onClick={() => handleBurnCalories(100)}>
 Burn 100 <FontAwesomeIcon icon={faFire} />
-</button></div><div className="m-2">
+</button>
+</div>
+<div className="m-2">
 <button className="btn btn-primary" onClick={() => handleBurnCalories(50)}>
 Burn 50 <FontAwesomeIcon icon={faFire} />
 </button>
@@ -220,7 +243,6 @@ Burn 20 <FontAwesomeIcon icon={faFire} />
 Burn 10 <FontAwesomeIcon icon={faFire} />
 </button>
 </div>
-
 </div>
 <button className="btn btn-danger mt-4 w-100" onClick={handleReset} style={{ textAlign: 'center' }}>Reset</button>
 </div>

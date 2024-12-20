@@ -1,8 +1,8 @@
 import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 
-const CalorieChart = ({ data }) => {
-  const colors = ['#4CAF50', '#3F51B5'];
+const CalorieChart = ({ data, totalCalories }) => {
+  const colors = totalCalories < 0 ? ['#FF0000', '#FF0000'] : ['#4CAF50', '#3F51B5'];
 
   return (
     <div style={{
