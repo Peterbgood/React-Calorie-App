@@ -9,6 +9,17 @@ export const foodItems = [
       ]
     },
     {
+      category: "Food",
+      items: [
+        { name: ' Food', calories: 500 },
+        { name: ' Food', calories: 300 },
+        { name: ' Food', calories: 200 },
+        { name: ' Food', calories: 100 },
+        { name: ' Food', calories: 20 },
+        { name: ' Food', calories: 10 },
+      ]
+    },
+    {
       category: "Fruits",
       items: [
         { name: '🍌 Banana', calories: 100 },
@@ -30,7 +41,7 @@ export const foodItems = [
     {
       category: "Grains",
       items: [
-        { name: '🍞 Whole Wheat Bread', calories: 110 },
+        { name: '🍞 Whole Wheat', calories: 110 },
         { name: '🍞 Bread', calories: 70 },
       ]
     },
@@ -38,9 +49,9 @@ export const foodItems = [
       category: "McDonald's",
       items: [
         { name: '🍔 Big Mac', calories: 550 },
-        { name: '🍟 McDonald\'s Fries', calories: 440 },
+        { name: '🍟 Fries', calories: 440 },
         { name: '🥯 Saugage McMuffin', calories: 480 },
-        { name: '🐔 McDonald\'s Nuggets', calories: 410 },
+        { name: '🐔 Nuggets', calories: 410 },
       ]
     },
     {
@@ -61,14 +72,14 @@ export const foodItems = [
     {
       category: "Chick-fil-A",
       items: [
-        { name: '🍔 Chick-fil-A Deluxe Sandwich', calories: 490 },
-        { name: '🍔 Chick-fil-A Sandwich', calories: 440 },
-        { name: '🐔 Chick-fil-A Strips', calories: 410 },
-        { name: '🍞 Chick-fil-A Biscuit', calories: 460 },
-        { name: '🍟 Chick-fil-A Fries', calories: 440 },
-        { name: '🌶️ Zesty Buffalo', calories: 25 },
-        { name: '🍦 Chick-fil-A Shake', calories: 560 },
-        { name: '🍋 Chick-fil-A Lemon Shake', calories: 320 },
+        { name: '🍔 Deluxe Sandwich', calories: 490 },
+        { name: '🍔 Sandwich', calories: 440 },
+        { name: '🐔 Strips', calories: 410 },
+        { name: '🍞 Biscuit', calories: 460 },
+        { name: '🍟 Fries', calories: 440 },
+        { name: '🌶️ Zesty', calories: 25 },
+        { name: '🍦 Shake', calories: 560 },
+        { name: '🍋 Lemon Shake', calories: 320 },
       ]
     },
     {
