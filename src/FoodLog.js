@@ -70,11 +70,19 @@ const handleAddFood = (foodItem) => {
       })
     );
   } else {
-    setLog((prevLog) => [...prevLog, { ...foodItem, count: 1, totalCalories: foodItem.calories }]);
+    // Check if the item is '☕ Coffee' and move it to the top of the list
+    if (foodItem.name === '☕ Coffee') {
+      setLog((prevLog) => [{ ...foodItem, count: 1, totalCalories: foodItem.calories }, ...prevLog]);
+    } else {
+      setLog((prevLog) => [...prevLog, { ...foodItem, count: 1, totalCalories: foodItem.calories }]);
+    }
   }
 
   setTotalCalories((prevTotalCalories) => prevTotalCalories - foodItem.calories);
 };
+
+
+
 const handleDeleteFood = (foodItem) => {
 setLog((prevLog) => prevLog.filter((item) => item.name !== foodItem.name));
 if (foodItem.name === '🔥 Burnt') {
