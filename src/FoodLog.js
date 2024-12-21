@@ -54,31 +54,27 @@ localStorage.setItem(`log-${date.toISOString().split('T')[0]}`, JSON.stringify(l
 }, [log, date]);
 
 const handleAddFood = (foodItem) => {
-if (foodItem.name === '☕ Coffee') {
-setLog((prevLog) => [{ name: '☕ Coffee', calories: 200, count: 1, totalCalories: 200 }, ...prevLog.filter((item) => item.name !== '☕ Coffee')]);
-} else if (foodItem.name === '🔥 Burnt') {
-setLog((prevLog) => [...prevLog.filter((item) => item.name !== '🔥 Burnt'), { ...foodItem, count: 1, totalCalories: foodItem.calories }]);
-} else {
-const existingItem = log.find((item) => item.name === foodItem.name);
-if (existingItem) {
-setLog((prevLog) => prevLog.map((item) => {
-if (item.name === foodItem.name) {
-return { ...item, count: item.count + 1, totalCalories: item.totalCalories + foodItem.calories };
-}
-return item;
-}));
-} else {
-const burnedCaloriesItem = log.find((item) => item.name === '🔥 Burnt');
-if (burnedCaloriesItem) {
-setLog((prevLog) => [...prevLog.filter((item) => item.name !== '🔥 Burnt'), { ...foodItem, count: 1, totalCalories: foodItem.calories }, burnedCaloriesItem]);
-} else {
-setLog((prevLog) => [...prevLog, { ...foodItem, count: 1, totalCalories: foodItem.calories }]);
-}
-}
-}
-setTotalCalories((prevTotalCalories) => prevTotalCalories - foodItem.calories);
-};
+  const existingItem = log.find((item) => item.name === foodItem.name);
 
+  if (existingItem) {
+    setLog((prevLog) =>
+      prevLog.map((item) => {
+        if (item.name === foodItem.name) {
+          return {
+            ...item,
+            count: item.count + 1,
+            totalCalories: item.totalCalories + foodItem.calories,
+          };
+        }
+        return item;
+      })
+    );
+  } else {
+    setLog((prevLog) => [...prevLog, { ...foodItem, count: 1, totalCalories: foodItem.calories }]);
+  }
+
+  setTotalCalories((prevTotalCalories) => prevTotalCalories - foodItem.calories);
+};
 const handleDeleteFood = (foodItem) => {
 setLog((prevLog) => prevLog.filter((item) => item.name !== foodItem.name));
 if (foodItem.name === '🔥 Burnt') {
