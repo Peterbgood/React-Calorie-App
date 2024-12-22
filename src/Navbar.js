@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -7,16 +6,16 @@ const Navbar = () => {
       <div className="container-fluid">
         <ul className="nav w-100 justify-content-center">
           <li className="nav-item">
-            <Link className="nav-link" to="/">Food Log</Link>
+            <a className="nav-link" href="/">Food Log</a>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="https://peterbgood.github.io/Cal/week.html">Week</Link>
+            <a className="nav-link" href="https://peterbgood.github.io/Cal/week.html" target="_blank">Week</a>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="https://peterbgood.github.io/Cal/yearly.html">Year</Link>
+            <a className="nav-link" href="https://peterbgood.github.io/Cal/yearly.html" target="_blank">Year</a>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="https://peterbgood.github.io/Cal/weight.html">Weight</Link>
+            <a className="nav-link" href="https://peterbgood.github.io/Cal/weight.html" target="_blank">Weight</a>
           </li>
         </ul>
       </div>
