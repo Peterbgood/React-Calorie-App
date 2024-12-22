@@ -17,7 +17,7 @@ export const foodItems = [
     items: [
       { name: '🍌 Banana', calories: 100 },
       { name: '🍑 Peach', calories: 70 },
-      { name: '🥑 Avocado', calories: 250 },
+      { name: '🥑 Avo', calories: 250 },
       { name: '🍎 Apple', calories: 95 },
     ]
   },
@@ -43,7 +43,7 @@ export const foodItems = [
     items: [
       { name: '🍔 Big Mac', calories: 550 },
       { name: '🍟 Fries', calories: 440 },
-      { name: '🥯 McMuffin', calories: 480 },
+      { name: '🥯 Muffin', calories: 480 },
       { name: '🐔 Nuggets', calories: 410 },
     ]
   },
@@ -52,21 +52,21 @@ export const foodItems = [
     items: [
       { name: '🌯 Quesa', calories: 590 },
       { name: '🌮 Chalupa', calories: 360 },
-      { name: '🌯 TB Quesa', calories: 510 },
+      { name: '🌯 TBQuesa', calories: 510 },
     ]
   },
   {
     category: "Burger King",
     items: [
       { name: '🍔 Whopper', calories: 670 },
-      { name: '🍟 BK\'s Fries', calories: 440 },
+      { name: '🍟 Fries', calories: 440 },
     ]
   },
   {
     category: "Chick-fil-A",
     items: [
       { name: '🍔 Deluxe', calories: 490 },
-      { name: '🍔 Sandwich', calories: 440 },
+      { name: '🍔 SW', calories: 440 },
       { name: '🐔 Strips', calories: 410 },
       { name: '🍞 Biscuit', calories: 460 },
       { name: '🍟 Fries', calories: 440 },
