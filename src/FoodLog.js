@@ -195,7 +195,7 @@ const FoodLog = () => {
           <br />
         </div>
       ))}
-      <button className="btn btn-danger mt-4 w-100" onClick={handleReset} style={{ textAlign: 'center' }}>Reset</button>
+      <button className="btn btn-danger mt-4 w-100 Reset-Margin" onClick={handleReset} style={{ textAlign: 'center' }}>Reset</button>
     </div>
   );
   };
