@@ -1,4 +1,5 @@
 import React from 'react';
+import CustomLink from './CustomLink';
 
 const Navbar = () => {
   return (
@@ -6,16 +7,16 @@ const Navbar = () => {
       <div className="container-fluid">
         <ul className="nav w-100 justify-content-center">
           <li className="nav-item">
-            <a className="nav-link" href="/">Food Log</a>
+            <CustomLink className="nav-link" to="/">Food Log</CustomLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="https://peterbgood.github.io/Cal/week.html" target="_blank">Week</a>
+            <CustomLink className="nav-link" to="https://peterbgood.github.io/Cal/week.html">Week</CustomLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="https://peterbgood.github.io/Cal/yearly.html" target="_blank">Year</a>
+            <CustomLink className="nav-link" to="https://peterbgood.github.io/Cal/yearly.html">Year</CustomLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="https://peterbgood.github.io/Cal/weight.html" target="_blank">Weight</a>
+            <CustomLink className="nav-link" to="https://peterbgood.github.io/Cal/weight.html">Weight</CustomLink>
           </li>
         </ul>
       </div>
