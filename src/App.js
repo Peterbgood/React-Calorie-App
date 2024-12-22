@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import FoodLog from './FoodLog';
+import './styles.css';
 
 const Week = () => {
   window.location.href = 'https://example.com/week'; // Replace with actual URL
